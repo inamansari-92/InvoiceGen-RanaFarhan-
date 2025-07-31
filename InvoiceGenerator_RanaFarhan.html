@@ -56,6 +56,29 @@
             color: #ecf0f1;
         }
 
+        .input-group select {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #34495e;
+            color: white;
+            border: 1px solid #4a5f7a;
+            cursor: pointer;
+        }
+
+        .input-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            background: #2c3e50;
+        }
+
+        .input-group select option {
+            background: #34495e;
+            color: white;
+            padding: 10px;
+        }
+
         .input-group input {
             padding: 12px;
             border: none;
@@ -314,6 +337,14 @@
                     <input type="date" id="deliveryDate" required>
                 </div>
                 <div class="input-group">
+                    <label for="coalType">Coal Type:</label>
+                    <select id="coalType" required>
+                        <option value="">Select Coal Type</option>
+                        <option value="Baluchistan Coal">Baluchistan Coal</option>
+                        <option value="Sindh Coal">Sindh Coal</option>
+                    </select>
+                </div>
+                <div class="input-group">
                     <label for="vehicleNumber">Vehicle Number:</label>
                     <input type="text" id="vehicleNumber" placeholder="e.g., FDZ-8518" required>
                 </div>
@@ -359,7 +390,8 @@
                     <div class="invoice-to">
                         <h3>Invoice To:</h3>
                         <p><strong>Mr. Rana Farhan Sb</strong><br>
-                        Coal Delivery Services<br>
+                        79 Commercial Market<br>
+                        Eden Orchard, Faisalabad<br>
                         Invoice # <span id="displayInvoiceNumber"></span></p>
                     </div>
                 </div>
@@ -376,7 +408,7 @@
                     </thead>
                     <tbody>
                         <tr id="invoiceRow">
-                            <td id="coalDescription">Coal (Vehicle: <span id="displayVehicleNumber"></span>)</td>
+                            <td id="coalDescription"><span id="displayCoalType"></span> (Vehicle: <span id="displayVehicleNumber"></span>)</td>
                             <td id="displayDeliveryDate"></td>
                             <td id="displayQuantity"></td>
                             <td id="displayRate"></td>
@@ -472,12 +504,13 @@
             // Get form values
             const invoiceNumber = document.getElementById('invoiceNumber').value;
             const deliveryDate = document.getElementById('deliveryDate').value;
+            const coalType = document.getElementById('coalType').value;
             const vehicleNumber = document.getElementById('vehicleNumber').value;
             const ratePerTon = parseFloat(document.getElementById('ratePerTon').value);
             const quantity = parseFloat(document.getElementById('quantity').value);
 
             // Validate inputs
-            if (!invoiceNumber || !deliveryDate || !vehicleNumber || !ratePerTon || !quantity) {
+            if (!invoiceNumber || !deliveryDate || !coalType || !vehicleNumber || !ratePerTon || !quantity) {
                 alert('Please fill in all fields');
                 return;
             }
@@ -492,6 +525,7 @@
             // Update invoice display
             document.getElementById('invoiceDate').textContent = invoiceDate;
             document.getElementById('displayInvoiceNumber').textContent = invoiceNumber;
+            document.getElementById('displayCoalType').textContent = coalType;
             document.getElementById('displayVehicleNumber').textContent = vehicleNumber;
             document.getElementById('displayDeliveryDate').textContent = formatDateDisplay(deliveryDate);
             document.getElementById('displayQuantity').textContent = quantity.toFixed(3);
